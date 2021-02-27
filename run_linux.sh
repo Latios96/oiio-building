@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 git clone https://github.com/OpenImageIO/oiio.git
 ROOT=$PWD
 oiio/src/build-scripts/build_pybind11.bash

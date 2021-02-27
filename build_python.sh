@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function buildCpp {
 	conan install .. --build missing
 	cmake \
@@ -11,7 +12,7 @@ function buildCpp {
 		-DENABLE_WebP=0 \
 		-DENABLE_FFmpeg=0 \
 		../oiio
-	make -j 16	
+	make -j 4	
 }
 
 function buildWheel {
