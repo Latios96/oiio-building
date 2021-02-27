@@ -16,9 +16,9 @@ pugixml/1.11
 
 
 [generators]
+json
 cmake
 cmake_find_package
-
 [options]
 libtiff:jpeg=libjpeg-turbo
 libtiff:shared=True
