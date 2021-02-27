@@ -16,9 +16,13 @@ function buildCpp {
 }
 
 function buildWheel {
+	echo "making dir pythonwheel.."
 	mkdir pythonwheel
+	echo "copy template setup.py"
 	cp ../wheel-src/setup.py pythonwheel/setup.py
+	echo "copy lib to wheel"
 	cp -r lib pythonwheel/oiio
+	echo "move lib"
 	mv pythonwheel/lib pythonwheel/oiio
 	touch pythonwheel/oiio/__init__.py
 	cd pythonwheel
