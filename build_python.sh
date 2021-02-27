@@ -2,7 +2,7 @@ function buildCpp {
 	conan install .. --build missing
 	cmake \
 		-DUSE_PYTHON=1 \
-		-DPYTHON_VERSION=3.7 \
+		-DPYTHON_VERSION=3.8 \
 		-DUSE_EXTERNAL_PUGIXML=1 \
 		-DOIIO_BUILD_TESTS=0 \
 		-DOIIO_BUILD_TOOLS=0 \
@@ -21,7 +21,7 @@ function buildWheel {
 	mv pythonwheel/lib pythonwheel/oiio
 	touch pythonwheel/oiio/__init__.py
 	cd pythonwheel
-	python3 setup.py bdist_wheel --python-tag=cp3.7 --plat-name=macosx-11.1-x86_64	
+	python3 setup.py bdist_wheel --python-tag=cp3.8 --plat-name=linux_x86_64
 }
 
 rm -rf buildpy
