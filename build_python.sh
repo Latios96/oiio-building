@@ -21,7 +21,7 @@ function buildWheel {
 	cp -r lib pythonwheel/oiio
 	touch pythonwheel/oiio/__init__.py
 	cd pythonwheel
-	python3 setup.py bdist_wheel --python-tag=cp3.8 --plat-name=linux_x86_64
+	python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=linux_x86_64
 }
 
 rm -rf buildpy
