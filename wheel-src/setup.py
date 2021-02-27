@@ -1,18 +1,12 @@
-"""A setuptools based setup module.
-See:
-https://packaging.python.org/en/latest/distributing.html
-https://github.com/pypa/sampleproject
-"""
-
 # Prefer setuptools over distutils
 from setuptools import setup
 from setuptools import find_packages
 
 setup(
     name="oiio",
-    version="2.3.2.0",
-    description="OpenImageIO Python package",
-    url="https://github.com/fredrikaverpil/oiio-python",
+    version="2.2.11.1",
+    description="OpenImageIO Python binaries",
+    url="https://github.com/Latios96/oiio-building",
 
     # https://pypi.org/classifiers/
     classifiers=[
