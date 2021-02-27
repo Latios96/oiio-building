@@ -3,9 +3,7 @@
 
 name: Create OIIO binaries
 
-on:
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   deploy:
