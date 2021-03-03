@@ -24,7 +24,7 @@ cmake_find_package
 libtiff:jpeg=libjpeg-turbo
 libtiff:shared=True
 Libtiff:webp=False
-
+openexr:shared=False
 [imports]
 bin,*.dll->./bin
 lib,*.dylib*->./lib
