@@ -10,7 +10,7 @@ freetype/2.10.0
 openjpeg/2.3.1
 tsl-robin-map/0.6.1@tessil/stable
 tbb/2020.0
-pybind11/2.4.3
+#pybind11/2.4.3
 zstd/1.4.8
 pugixml/1.11
 
@@ -19,6 +19,7 @@ pugixml/1.11
 json
 cmake
 cmake_find_package
+
 [options]
 libtiff:jpeg=libjpeg-turbo
 libtiff:shared=True
