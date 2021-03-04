@@ -17,7 +17,8 @@ if __name__ == '__main__':
                      "-DSTOP_ON_WARNING=OFF",
                      "-DENABLE_WebP=0",
                      "-DENABLE_FFmpeg=0",
-                     "-DOPENEXR_DIR={}".format(openexr_root),
-                     "-DILMBASE_DIR={}".format(openexr_root),
+                     "-DOpenEXR_DIR={}".format(openexr_root),
+                     "-DIlmBase_DIR={}".format(openexr_root),
+                     "-DImath_DIR_DIR={}".format(openexr_root),
                      "../oiio"]
     subprocess.call(cmake_command)
