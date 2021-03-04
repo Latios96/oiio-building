@@ -5,8 +5,8 @@ if __name__ == '__main__':
     with open('conanbuildinfo.json', 'r') as f:
         data = json.load(f)
     dependencies = data['dependencies']
-    openexr_dependency = [x for x in dependencies if x['name'] == 'openexr'][0]
-    openexr_root = openexr_dependency['rootpath']
+    openexr_dependency = [x for x in dependencies if x['name'] == 'openexr']
+    openexr_root = openexr_dependency[0]['rootpath'] if openexr_dependency else None
     cmake_command = ["cmake",
                      "-DUSE_PYTHON=1",
                      "-DPYTHON_VERSION=3.8",
