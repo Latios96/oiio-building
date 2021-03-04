@@ -2,7 +2,7 @@
 function buildCpp {
 	conan install .. --build missing
 	python3 ../call_cmake.py
-	make -j 16	
+	make -j 16 VERBOSE=1
 }
 
 function buildWheel {

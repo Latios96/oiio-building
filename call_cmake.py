@@ -5,10 +5,8 @@ if __name__ == '__main__':
     with open('conanbuildinfo.json', 'r') as f:
         data = json.load(f)
     dependencies = data['dependencies']
-    deps = []
-    for dep in dependencies:
-        deps.append("-D{}_ROOT={}".format(dep['name'].upper(), dep['rootpath']))
-
+    openexr_dependency = [x for x in dependencies if x['name'] == 'openexr'][0]
+    openexr_root = openexr_dependency['rootpath']
     cmake_command = ["cmake",
                      "-DUSE_PYTHON=1",
                      "-DPYTHON_VERSION=3.8",
@@ -19,7 +17,6 @@ if __name__ == '__main__':
                      "-DSTOP_ON_WARNING=OFF",
                      "-DENABLE_WebP=0",
                      "-DENABLE_FFmpeg=0",
-                     *deps,
+                     "-DOPENEXR_HOME={}".format(openexr_root),
                      "../oiio"]
-    print(cmake_command)
     subprocess.call(cmake_command)
