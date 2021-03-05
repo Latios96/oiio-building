@@ -6,10 +6,8 @@ name: Create OIIO binaries
 on: [push]
 
 jobs:
-  deploy:
-
+  build:
     runs-on: ubuntu-20.04
-    
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
@@ -26,6 +24,14 @@ jobs:
         apt list --installed
         sudo apt-get remove --purge libopenexr-dev
         sudo apt-get remove --purge libopenexr24
+    - name: setup conan profile
+      run: |
+        conan profile new default --detect
+        conan profile update settings.compiler.libcxx=libstdc++11 default
     - name: Building
       run: |
         ./run_linux.sh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: '["./buildpy/pythonwheel/dist/*"]'
