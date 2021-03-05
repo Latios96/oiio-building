@@ -24,7 +24,8 @@ jobs:
     - name: remove OpenExr
       run: |
         apt list --installed
-        sudo apt-get remove --purge openexr
+        sudo apt-get remove --purge libopenexr-dev
+        sudo apt-get remove --purge libopenexr24
     - name: Building
       run: |
         ./run_linux.sh
