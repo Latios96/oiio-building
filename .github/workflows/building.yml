@@ -24,7 +24,6 @@ jobs:
         pip install conan
         conan --version
         pip install wheel
-        sudo apt-get –-purge remove openexr
     - name: Building
       run: |
         ./run_linux.sh

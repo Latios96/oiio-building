@@ -3,6 +3,7 @@
 libtiff/4.1.0
 #libpng/1.6.37
 openexr/2.5.3
+libpng/1.6.37
 boost/1.70.0
 #libjpeg-turbo/2.0.2
 #giflib/5.1.4
