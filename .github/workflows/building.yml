@@ -22,7 +22,9 @@ jobs:
         conan --version
         pip install wheel
     - name: remove OpenExr
-      run: sudo apt-get remove --purge openexr
+      run: |
+        apt list --installed
+        sudo apt-get remove --purge openexr
     - name: Building
       run: |
         ./run_linux.sh
