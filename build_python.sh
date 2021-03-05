@@ -11,7 +11,12 @@ function buildWheel {
 	cp -r lib pythonwheel/oiio
 	touch pythonwheel/oiio/__init__.py
 	cd pythonwheel
-	python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=linux_x86_64
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+	  python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=linux_x86_64
+	fi
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+	  python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=macosx-11.1-x86_64
+	fi
 }
 
 rm -rf buildpy
