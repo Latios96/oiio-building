@@ -7,6 +7,7 @@ on: [push]
 
 jobs:
   build:
+    name: Building OIIO Linux binaries
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -35,3 +36,27 @@ jobs:
       with:
         name: my-artifact
         path: '["./buildpy/pythonwheel/dist/*"]'
+
+  publish:
+    name: Publish OIIO Linux binaries
+    runs-on: ubuntu-20.04
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload release binaries
+      uses: alexellis/upload-assets@0.2.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        asset_paths: '["./buildpy/pythonwheel/dist/*"]'
+
