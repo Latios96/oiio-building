@@ -3,10 +3,7 @@
 
 name: Create OIIO binaries
 
-on:
-  push:
-    tags-ignore:
-      - '**'
+on: [push]
 
 jobs:
   deploy:
@@ -24,6 +21,8 @@ jobs:
         pip install conan
         conan --version
         pip install wheel
+    - name: remove OpenExr
+      run: sudo apt-get remove --purge openexr
     - name: Building
       run: |
         ./run_linux.sh
