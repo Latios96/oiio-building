@@ -27,6 +27,10 @@ jobs:
         apt list --installed
         sudo apt-get remove --purge libopenexr-dev
         sudo apt-get remove --purge libopenexr24
+    - name: setup conan profile
+        run: |
+          conan profile new default --detect
+          conan profile update settings.compiler.libcxx=libstdc++11 default
     - name: Building
       run: |
         ./run_linux.sh
