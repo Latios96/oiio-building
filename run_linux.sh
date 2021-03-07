@@ -2,12 +2,9 @@
 
 if [ -z ${OIIO_PYTHON_VERSION+x} ]; then
   export OIIO_PYTHON_VERSION="3.7"
-  echo $OIIO_PYTHON_VERSION
 fi
 
-if [ -z ${OIIO_PYTHON_WHEEL_VERSION+x} ]; then
-  export OIIO_PYTHON_WHEEL_VERSION="37"
-fi
+export OIIO_PYTHON_WHEEL_VERSION=${OIIO_PYTHON_VERSION//[-._]/}
 
 git clone https://github.com/OpenImageIO/oiio.git
 cd oiio
