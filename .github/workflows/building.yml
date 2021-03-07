@@ -117,7 +117,7 @@ jobs:
           OIIO_PYTHON_VERSION: 3.8
       - uses: actions/upload-artifact@v2
         with:
-          name: binaries-macos-37
+          name: binaries-macos-38
           path: buildpy/pythonwheel/dist/*
 
   publish:
