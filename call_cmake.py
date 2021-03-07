@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 
 if __name__ == '__main__':
     with open('conanbuildinfo.json', 'r') as f:
@@ -9,7 +10,7 @@ if __name__ == '__main__':
     openexr_root = openexr_dependency[0]['rootpath'] if openexr_dependency else None
     cmake_command = ["cmake",
                      "-DUSE_PYTHON=1",
-                     "-DPYTHON_VERSION=3.8",
+                     "-DPYTHON_VERSION={}".format(os.environ['OIIO_PYTHON_VERSION']),
                      "-DUSE_EXTERNAL_PUGIXML=1",
                      "-DOIIO_BUILD_TESTS=0",
                      "-DOIIO_BUILD_TOOLS=0",

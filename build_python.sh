@@ -2,7 +2,7 @@
 function buildCpp {
 	conan install .. --build missing
   python3 ../call_cmake.py
-	make -j 16 VERBOSE=1
+	make -j 16
 }
 
 function buildWheel {
@@ -12,9 +12,9 @@ function buildWheel {
 	touch pythonwheel/oiio/__init__.py
 	cd pythonwheel
 	if [[ "$OSTYPE" == "darwin"* ]]; then
-	  python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=macosx-11.1-x86_64
+	  python3 setup.py bdist_wheel --python-tag=cp$OIIO_PYTHON_WHEEL_VERSION --plat-name=macosx-11.1-x86_64
 	else
-	  python3 setup.py bdist_wheel --python-tag=cp38 --plat-name=linux_x86_64
+	  python3 setup.py bdist_wheel --python-tag=cp$OIIO_PYTHON_WHEEL_VERSION --plat-name=linux_x86_64
 	fi
 }
 
