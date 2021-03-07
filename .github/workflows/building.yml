@@ -36,7 +36,7 @@ jobs:
         OIIO_PYTHON_VERSION: 3.7
     - uses: actions/upload-artifact@v2
       with:
-        name: binaries-linux
+        name: binaries-linux-37
         path: buildpy/pythonwheel/dist/*
 
   build_linux_py38:
@@ -69,7 +69,7 @@ jobs:
           OIIO_PYTHON_VERSION: 3.8
       - uses: actions/upload-artifact@v2
         with:
-          name: binaries-linux
+          name: binaries-linux-38
           path: buildpy/pythonwheel/dist/*
 
   build_macos_py37:
@@ -93,7 +93,7 @@ jobs:
           OIIO_PYTHON_VERSION: 3.7
       - uses: actions/upload-artifact@v2
         with:
-          name: binaries-macos
+          name: binaries-macos-37
           path: buildpy/pythonwheel/dist/*
 
   build_macos_py38:
@@ -117,7 +117,7 @@ jobs:
           OIIO_PYTHON_VERSION: 3.8
       - uses: actions/upload-artifact@v2
         with:
-          name: binaries-macos
+          name: binaries-macos-37
           path: buildpy/pythonwheel/dist/*
 
   publish:
@@ -132,10 +132,16 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: binaries-linux
+        name: binaries-linux-37
     - uses: actions/download-artifact@v2
       with:
-        name: binaries-macos
+        name: binaries-macos-37
+    - uses: actions/download-artifact@v2
+      with:
+        name: binaries-linux-38
+    - uses: actions/download-artifact@v2
+      with:
+        name: binaries-macos-38
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
