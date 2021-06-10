@@ -23,6 +23,15 @@ jobs:
     - name: Building
       run: |
         ./build.sh
+    - uses: actions/upload-artifact@v2
+      with:
+          name: binaries-linux
+          path: |
+            build/bin/oiiotool
+            build/bin/maketx
+            build/bin/idiff
+            build/bin/iinfo
+            build/bin/igrep
 
   build_macos:
     name: Building OIIO Mac OS binaries
@@ -41,7 +50,15 @@ jobs:
       - name: Building
         run: |
           ./build.sh
-
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binaries-macos
+          path: |
+            build/bin/oiiotool
+            build/bin/maketx
+            build/bin/idiff
+            build/bin/iinfo
+            build/bin/igrep
   publish:
     name: Publish OIIO binaries
     runs-on: ubuntu-20.04
