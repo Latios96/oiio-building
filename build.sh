@@ -5,7 +5,7 @@ rm -rf build
 mkdir build
 cp conanfile.txt build/conanfile.txt
 cd build
-conan install .
+conan install . --build missing
 
 
 
