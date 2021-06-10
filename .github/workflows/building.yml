@@ -23,15 +23,14 @@ jobs:
     - name: Building
       run: |
         ./build.sh
+        tar -cvf openimageio-2.2.7.0-linux.tar build/bin/oiiotool build/bin/maketx build/bin/idiff build/bin/iinfo build/bin/igrep
     - uses: actions/upload-artifact@v2
       with:
           name: binaries-linux
           path: |
-            build/bin/oiiotool
-            build/bin/maketx
-            build/bin/idiff
-            build/bin/iinfo
-            build/bin/igrep
+            openimageio-2.2.7.0-linux.tar
+
+
   build_macos:
     name: Building OIIO Mac OS binaries
     runs-on: macos-latest
@@ -49,15 +48,14 @@ jobs:
       - name: Building
         run: |
           ./build.sh
+          tar -cvf openimageio-2.2.7.0-macos.tar build/bin/oiiotool build/bin/maketx build/bin/idiff build/bin/iinfo build/bin/igrep
       - uses: actions/upload-artifact@v2
         with:
           name: binaries-macos
           path: |
-            build/bin/oiiotool
-            build/bin/maketx
-            build/bin/idiff
-            build/bin/iinfo
-            build/bin/igrep
+            openimageio-2.2.7.0-macos.tar
+
+
   build_windows:
     name: Building OIIO Windows binaries
     runs-on: windows-2016
@@ -78,15 +76,14 @@ jobs:
           cp conanfile.txt build/conanfile.txt
           cd build
           conan install . --build missing
+          tar -cvf openimageio-2.2.7.0-windows.tar build/bin/oiiotool build/bin/maketx build/bin/idiff build/bin/iinfo build/bin/igrep
       - uses: actions/upload-artifact@v2
         with:
           name: binaries-windows
           path: |
-            build/bin/oiiotool.exe
-            build/bin/maketx.exe
-            build/bin/idiff.exe
-            build/bin/iinfo.exe
-            build/bin/igrep.exe
+            openimageio-2.2.7.0-windows.tar
+
+
   publish:
     name: Publish OIIO binaries
     runs-on: ubuntu-20.04
@@ -101,6 +98,9 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: binaries-macos
+    - uses: actions/download-artifact@v2
+      with:
+        name: binaries-windows
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -116,4 +116,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        asset_paths: '["*.whl"]'
+        asset_paths: '["openimageio-2.2.7.0-windows.tar", "openimageio-2.2.7.0-linux.tar", "openimageio-2.2.7.0-macos.tar"]'
