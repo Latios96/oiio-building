@@ -78,6 +78,7 @@ jobs:
           cp conanfile.txt build/conanfile.txt
           cd build
           conan install . --build missing
+          cd ..
           tar -cvf openimageio-2.2.7.0-windows.tar build/bin/oiiotool.exe build/bin/maketx.exe build/bin/idiff.exe build/bin/iinfo.exe build/bin/igrep.exe
       - uses: actions/upload-artifact@v2
         with:
