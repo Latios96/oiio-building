@@ -59,6 +59,37 @@ jobs:
             build/bin/idiff
             build/bin/iinfo
             build/bin/igrep
+
+  build_windows:
+    name: Building OIIO Windows binaries
+    runs-on: windows-2016
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+          pip install wheel
+      - name: Building
+        run: |
+          mkdir build
+          cp conanfile.txt build/conanfile.txt
+          cd build
+          conan install . --build missing
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binaries-windows
+          path: |
+            build/bin/oiiotool.exe
+            build/bin/maketx.exe
+            build/bin/idiff.exe
+            build/bin/iinfo.exe
+            build/bin/igrep.exe
+
   publish:
     name: Publish OIIO binaries
     runs-on: ubuntu-20.04
