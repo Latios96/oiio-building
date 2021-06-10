@@ -6,15 +6,15 @@ name: Create OIIO binaries
 on: [push]
 
 jobs:
-  build_linux:
+  build_linux_py37:
     name: Building OIIO Linux binaries
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python 3.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
+        python-version: 3.7
     - name: install conan
       run: |
         pip install conan
@@ -32,12 +32,47 @@ jobs:
     - name: Building
       run: |
         ./run_linux.sh
+      env:
+        OIIO_PYTHON_VERSION: 3.7
     - uses: actions/upload-artifact@v2
       with:
-        name: binaries-linux
+        name: binaries-linux-37
         path: buildpy/pythonwheel/dist/*
 
-  build_macos:
+  build_linux_py38:
+    name: Building OIIO Linux binaries
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+          pip install wheel
+      - name: remove OpenExr
+        run: |
+          apt list --installed
+          sudo apt-get remove --purge libopenexr-dev
+          sudo apt-get remove --purge libopenexr24
+      - name: setup conan profile
+        run: |
+          conan profile new default --detect
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+      - name: Building
+        run: |
+          ./run_linux.sh
+        env:
+          OIIO_PYTHON_VERSION: 3.8
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binaries-linux-38
+          path: buildpy/pythonwheel/dist/*
+
+  build_macos_py37:
     name: Building OIIO Mac OS binaries
     runs-on: macos-latest
     steps:
@@ -54,25 +89,59 @@ jobs:
       - name: Building
         run: |
           ./run_linux.sh
+        env:
+          OIIO_PYTHON_VERSION: 3.7
       - uses: actions/upload-artifact@v2
         with:
-          name: binaries-macos
+          name: binaries-macos-37
+          path: buildpy/pythonwheel/dist/*
+
+  build_macos_py38:
+    name: Building OIIO Mac OS binaries
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+          pip install wheel
+      - name: Building
+        run: |
+          ./run_linux.sh
+        env:
+          OIIO_PYTHON_VERSION: 3.8
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binaries-macos-38
           path: buildpy/pythonwheel/dist/*
 
   publish:
     name: Publish OIIO binaries
     runs-on: ubuntu-20.04
     needs:
-    - build_linux
-    - build_macos
+    - build_linux_py37
+    - build_macos_py37
+    - build_linux_py38
+    - build_macos_py38
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: binaries-linux
+        name: binaries-linux-37
     - uses: actions/download-artifact@v2
       with:
-        name: binaries-macos
+        name: binaries-macos-37
+    - uses: actions/download-artifact@v2
+      with:
+        name: binaries-linux-38
+    - uses: actions/download-artifact@v2
+      with:
+        name: binaries-macos-38
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
