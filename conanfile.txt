@@ -2,7 +2,7 @@
 openimageio/2.2.7.0
 
 [imports]
-bin,*.dll->./bin
+bin,*->./bin
 bin,*.exe->./bin
 lib,*.dylib*->./lib
 lib,*.so*->./lib
