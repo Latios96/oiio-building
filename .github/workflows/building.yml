@@ -20,22 +20,9 @@ jobs:
         pip install conan
         conan --version
         pip install wheel
-    - name: remove OpenExr
-      run: |
-        apt list --installed
-        sudo apt-get remove --purge libopenexr-dev
-        sudo apt-get remove --purge libopenexr24
-    - name: setup conan profile
-      run: |
-        conan profile new default --detect
-        conan profile update settings.compiler.libcxx=libstdc++11 default
     - name: Building
       run: |
-        ./run_linux.sh
-    - uses: actions/upload-artifact@v2
-      with:
-        name: binaries-linux
-        path: buildpy/pythonwheel/dist/*
+        ./build.sh
 
   build_macos:
     name: Building OIIO Mac OS binaries
@@ -53,11 +40,7 @@ jobs:
           pip install wheel
       - name: Building
         run: |
-          ./run_linux.sh
-      - uses: actions/upload-artifact@v2
-        with:
-          name: binaries-macos
-          path: buildpy/pythonwheel/dist/*
+          ./build.sh
 
   publish:
     name: Publish OIIO binaries
