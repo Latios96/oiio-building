@@ -22,6 +22,7 @@ jobs:
         pip install wheel
     - name: Building
       run: |
+        chmod +x ./build.sh
         ./build.sh
         tar -cvf openimageio-2.2.7.0-linux.tar build/bin/oiiotool build/bin/maketx build/bin/idiff build/bin/iinfo build/bin/igrep
     - uses: actions/upload-artifact@v2
@@ -47,6 +48,7 @@ jobs:
           pip install wheel
       - name: Building
         run: |
+          chmod +x ./build.sh
           ./build.sh
           tar -cvf openimageio-2.2.7.0-macos.tar build/bin/oiiotool build/bin/maketx build/bin/idiff build/bin/iinfo build/bin/igrep
       - uses: actions/upload-artifact@v2
@@ -90,6 +92,7 @@ jobs:
     needs:
     - build_linux
     - build_macos
+    - build_windows
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
     - uses: actions/download-artifact@v2
